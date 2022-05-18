@@ -1,0 +1,4 @@
+# Project exclude paths
+/test-app/node_modules/
+.idea
+./test-app/dist
