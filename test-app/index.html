@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+            integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+            crossorigin="anonymous">
+    </script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="font-size: 18px; border: 1px solid black; height: 100px" id="text_content"></div>
+<script>
+    const socket = io('http://localhost:5000', {query: 'userId=1'});
+
+    const content = document.getElementById('text_content');
+
+    socket.on('message:user_update', (data) => {
+        content.innerText = data.message;
+    });
+</script>
+</body>
+</html>
