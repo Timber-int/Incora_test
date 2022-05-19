@@ -2,10 +2,10 @@ import {
     Column, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn,
 } from 'typeorm';
 
-export interface IDefaultValue{
-    id:number,
-    createdAt:string,
-    deletedAt?:string,
+export interface IDefaultValue {
+    id: number,
+    createdAt: string,
+    deletedAt?: string,
 }
 
 export class DefaultValue implements IDefaultValue {
@@ -17,9 +17,9 @@ export class DefaultValue implements IDefaultValue {
         default: Date.now(),
     })
     @CreateDateColumn({ type: 'timestamp' })
-        createdAt:string;
+        createdAt: string;
 
     @Column()
     @DeleteDateColumn({ type: 'timestamp' })
-        deletedAt?:string;
+        deletedAt?: string;
 }

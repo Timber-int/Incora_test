@@ -15,7 +15,7 @@ router.post(
         next();
     },
     checkDataMiddleware.checkDataValidation,
-    userMiddleware.checkIsUserExistByEmail,
+    userMiddleware.checkIsEmailUnique,
     userController.createUser,
 );
 

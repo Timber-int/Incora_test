@@ -2,6 +2,9 @@ import bcrypt from 'bcrypt';
 import { IUser } from '../entity';
 import { CONSTANTS } from '../constants';
 import { userRepository } from '../repository';
+import { ErrorHandler } from '../errorHandler';
+import { MESSAGE } from '../message';
+import { STATUS } from '../errorCode';
 
 class UserService {
     public async createUser(data: IUser): Promise<IUser> {
@@ -24,6 +27,14 @@ class UserService {
         const user = await userRepository.getUserByEmail(email);
 
         return user;
+    }
+
+    public async comparePassword(password: string, hashPassword: string): Promise<void | Error> {
+        const isPasswordUnique = await bcrypt.compare(password, hashPassword);
+
+        if (!isPasswordUnique) {
+            throw new ErrorHandler(MESSAGE.WRONG_EMAIL_OR_PASSWORD, STATUS.CODE_404);
+        }
     }
 
     public async updateUserById(id: number, dataToUpdate: Partial<IUser>): Promise<object> {
