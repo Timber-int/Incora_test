@@ -9,13 +9,16 @@
     <title>Title</title>
 </head>
 <body>
-<div style="font-size: 18px; border: 1px solid black; height: 100px" id="text_content"></div>
+<div style="font-size: 32px;display: flex;justify-content: center;align-items: center; border: 1px solid black; height: 100px"
+     id="text_content">
+</div>
 <script>
     const socket = io('http://localhost:5000', {query: 'userId=1'});
 
     const content = document.getElementById('text_content');
 
     socket.on('message:user_update', (data) => {
+        console.log(data)
         content.innerText = data.message;
     });
 </script>

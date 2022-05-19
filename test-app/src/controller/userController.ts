@@ -43,8 +43,8 @@ class UserController {
 
             await userService.updateUserById(Number(id), req.body);
 
-            await io.on('connection', (socket: any) => {
-                socket.broadcast.emit('message:user_update', { message: `Dear user ${firstName} ${lastName} your body has successfully updated` });
+            await io.on('connection', () => {
+                io.emit('message:user_update', { message: `Dear user ${firstName} ${lastName} your body has successfully updated!!!` });
             });
 
             res.json(MESSAGE.USER_UPDATED);
