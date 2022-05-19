@@ -1,6 +1,7 @@
 import {
     Column, Entity, JoinColumn, OneToOne,
 } from 'typeorm';
+
 import { User } from './user';
 import { CONSTANTS } from '../constants';
 import { DefaultValue, IDefaultValue } from './defaultValue';

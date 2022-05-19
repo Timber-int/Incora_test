@@ -1,4 +1,5 @@
 import { EntityRepository, getManager, Repository } from 'typeorm';
+
 import { IToken, Token } from '../../entity';
 import { ITokenRepository } from './tokenRepositoryInterface';
 import { ITokenDataToSave } from '../../interface/tokenInterfaces';

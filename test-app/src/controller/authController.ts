@@ -1,4 +1,5 @@
 import { NextFunction, Response } from 'express';
+
 import { IRequestExtended } from '../interface';
 import { passwordService, tokenService, userService } from '../service';
 import { IUser } from '../entity';

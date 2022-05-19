@@ -1,15 +1,3 @@
-export const UserRole = {
-    USER: 'user',
-    ADMIN: 'admin',
-    MANAGER: 'manager',
-};
-
-export const TokenType = {
-    ACCESS: 'ACCESS',
-    REFRESH: 'REFRESH',
-    ACTION: 'ACTION',
-};
-
 export const CONSTANTS = {
     AUTHORIZATION: 'Authorization',
     HASH_SALT: 15,

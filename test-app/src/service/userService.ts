@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+
 import { IUser } from '../entity';
 import { CONSTANTS } from '../constants';
 import { userRepository } from '../repository';

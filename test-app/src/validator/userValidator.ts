@@ -1,4 +1,5 @@
 import Joi from 'joi';
+
 import { CONSTANTS } from '../constants';
 
 export const userBodyValidator = Joi.object({

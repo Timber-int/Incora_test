@@ -3,6 +3,7 @@ import express from 'express';
 import { createConnection } from 'typeorm';
 
 import { apiRouter } from './routes';
+import { config } from './config';
 
 const app = express();
 
@@ -11,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(apiRouter);
 
-const PORT = 5000;
+const { PORT } = config;
 
 app.listen(PORT, async () => {
     console.log(`Server has been started on ${PORT} port...`);

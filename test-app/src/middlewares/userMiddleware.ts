@@ -1,4 +1,5 @@
 import { NextFunction, Response } from 'express';
+
 import { IRequestExtended } from '../interface';
 import { userService } from '../service';
 import { ErrorHandler } from '../errorHandler';
