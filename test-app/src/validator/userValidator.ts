@@ -12,7 +12,7 @@ export const userBodyValidator = Joi.object({
         .regex(CONSTANTS.NAME_REGEX)
         .messages({
             'string.empty': '"first_name" Can not be empty',
-            'string.pattern.base': 'Enter only letter min 3 max 15',
+            'string.pattern.base': 'Enter "first_name" only letter min 3 max 15',
         }),
     last_name: Joi.string()
         .alphanum()
@@ -23,7 +23,7 @@ export const userBodyValidator = Joi.object({
         .regex(CONSTANTS.NAME_REGEX)
         .messages({
             'string.empty': '"last_name" Can not be empty',
-            'string.pattern.base': 'Enter only letter min 3 max 15',
+            'string.pattern.base': 'Enter "last_name" only letter min 3 max 15',
         }),
 
     phone: Joi.string()
@@ -57,7 +57,7 @@ export const userUpdateValidator = Joi.object({
         .regex(CONSTANTS.NAME_REGEX)
         .messages({
             'string.empty': '"first_name" Can not be empty',
-            'string.pattern.base': 'Enter only letter min 3 max 15',
+            'string.pattern.base': 'Enter "first_name" only letter min 3 max 15',
         }),
     last_name: Joi.string()
         .alphanum()
@@ -67,7 +67,7 @@ export const userUpdateValidator = Joi.object({
         .regex(CONSTANTS.NAME_REGEX)
         .messages({
             'string.empty': '"last_name" Can not be empty',
-            'string.pattern.base': 'Enter only letter min 3 max 15',
+            'string.pattern.base': 'Enter "last_name" only letter min 3 max 15',
         }),
 
     phone: Joi.string()
