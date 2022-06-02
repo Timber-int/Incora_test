@@ -4,4 +4,9 @@ export const MESSAGE = {
     USER_UPDATED: 'User updated',
     ID_NOT_EXIST: 'Id not exist',
     WRONG_EMAIL_OR_PASSWORD: 'Wrong email or password',
+    WRONG_EMAIL_OR_PHONE: 'Wrong email or phone',
+    UNAUTHORIZED: 'Unauthorized',
+    NOT_TOKEN: 'Not token',
+    TOKEN_NOT_VALID: 'Token not valid',
+    LOGOUT_USER: 'Logout',
 };

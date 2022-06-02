@@ -1,53 +1,55 @@
 import bcrypt from 'bcrypt';
 
+import { UpdateResult } from 'typeorm';
 import { IUser } from '../entity';
-import { CONSTANTS } from '../constants';
 import { userRepository } from '../repository';
+import { CONSTANTS } from '../constants';
 import { ErrorHandler } from '../errorHandler';
 import { MESSAGE } from '../message';
-import { STATUS } from '../errorCode';
 
 class UserService {
-    public async createUser(data: IUser): Promise<IUser> {
-        const { password } = data;
-
-        const hashPassword = await this._hashPassword(password);
-
-        const userWithHashPassword = { ...data, password: hashPassword };
-
-        return userRepository.createUser(userWithHashPassword);
+    public async getAllUsers(): Promise<IUser[]> {
+        return userRepository.getAllUsers();
     }
 
     public async getUserById(id: number): Promise<IUser | undefined> {
-        const user = await userRepository.getUserById(id);
-
-        return user;
+        return userRepository.getUserById(id);
     }
 
     public async getUserByEmail(email: string): Promise<IUser | undefined> {
-        const user = await userRepository.getUserByEmail(email);
+        return userRepository.getUserByEmail(email);
+    }
 
-        return user;
+    public async getUserByPhone(phone: string): Promise<IUser | undefined> {
+        return userRepository.getUserByEmail(phone);
+    }
+
+    public async createUser(data: IUser): Promise<IUser> {
+        const { password } = data;
+
+        const hashedPassword = await this._hashPassword(password);
+
+        const userWithHashPassword = { ...data, password: hashedPassword };
+
+        return userRepository.createUser(userWithHashPassword);
     }
 
     public async comparePassword(password: string, hashPassword: string): Promise<void | Error> {
         const isPasswordUnique = await bcrypt.compare(password, hashPassword);
 
         if (!isPasswordUnique) {
-            throw new ErrorHandler(MESSAGE.WRONG_EMAIL_OR_PASSWORD, STATUS.CODE_404);
+            throw new ErrorHandler(MESSAGE.WRONG_EMAIL_OR_PASSWORD);
         }
     }
 
-    public async updateUserById(id: number, dataToUpdate: Partial<IUser>): Promise<object> {
-        const { password } = dataToUpdate;
+    public async updateUser(id: number, data: Partial<IUser>): Promise<UpdateResult> {
+        const { password } = data;
 
         if (password) {
-            dataToUpdate.password = await this._hashPassword(password);
+            data.password = await this._hashPassword(password);
         }
 
-        const user = await userRepository.updateUserById(id, dataToUpdate);
-
-        return user;
+        return userRepository.updateUser(id, data);
     }
 
     private async _hashPassword(password: string): Promise<string> {

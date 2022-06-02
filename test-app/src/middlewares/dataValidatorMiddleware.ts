@@ -1,14 +1,13 @@
 import { NextFunction, Response } from 'express';
-
 import { ErrorHandler } from '../errorHandler';
 import { IRequestExtended } from '../interface';
 
-class CheckDataMiddleware {
-    public async checkDataValidation(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+class DataValidatorMiddleware {
+    public async dataValidator(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
-            const dataValidation = req.chosenValidationData;
+            const validationType = req.chosenValidationType;
 
-            const { value, error } = dataValidation.validate(req.body);
+            const { error, value } = validationType.validate(req.body);
 
             if (error) {
                 next(new ErrorHandler(error.details[0].message));
@@ -24,4 +23,4 @@ class CheckDataMiddleware {
     }
 }
 
-export const checkDataMiddleware = new CheckDataMiddleware();
+export const dataValidatorMiddleware = new DataValidatorMiddleware();

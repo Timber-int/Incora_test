@@ -1,20 +1,13 @@
-import { NextFunction, Response, Router } from 'express';
+import { Router } from 'express';
 
 import { STATUS } from '../errorCode';
 import { userRouter } from './userRouter';
-import { IRequestExtended } from '../interface';
-import { loginDataValidator } from '../validator';
-import { checkDataMiddleware, userMiddleware } from '../middlewares';
-import { authController } from '../controller';
+import { authRouter } from './authRouter';
 
 const router = Router();
 
 router.use('/users', userRouter);
-
-router.post('/login', (req: IRequestExtended, res: Response, next: NextFunction) => {
-    req.chosenValidationData = loginDataValidator;
-    next();
-}, checkDataMiddleware.checkDataValidation, userMiddleware.checkIsUserExist, authController.login);
+router.use('/auth', authRouter);
 
 // @ts-ignore
 router.use('*', (err, req, res, next) => {

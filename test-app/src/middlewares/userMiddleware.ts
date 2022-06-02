@@ -1,18 +1,19 @@
 import { NextFunction, Response } from 'express';
-
 import { IRequestExtended } from '../interface';
 import { userService } from '../service';
 import { ErrorHandler } from '../errorHandler';
 import { MESSAGE } from '../message';
 import { STATUS } from '../errorCode';
+import { IUser } from '../entity';
 
 class UserMiddleware {
-    public async checkIsEmailUnique(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+    public async checkIsUserWithThisEmailAndPhoneExists(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
-            const user = await userService.getUserByEmail(req.body.email);
+            const userWithEmail = await userService.getUserByEmail(req.body.email);
+            const userWithPhone = await userService.getUserByPhone(req.body.phone);
 
-            if (user) {
-                next(new ErrorHandler(MESSAGE.USER_EXIST, STATUS.CODE_404));
+            if (userWithEmail || userWithPhone) {
+                next(new ErrorHandler(MESSAGE.WRONG_EMAIL_OR_PHONE, STATUS.CODE_404));
                 return;
             }
 
@@ -24,14 +25,14 @@ class UserMiddleware {
 
     public async checkIsUserExist(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
-            const user = await userService.getUserByEmail(req.body.email);
+            const userWithEmail = await userService.getUserByEmail(req.body.email);
 
-            if (!user) {
+            if (!userWithEmail) {
                 next(new ErrorHandler(MESSAGE.WRONG_EMAIL_OR_PASSWORD, STATUS.CODE_404));
                 return;
             }
 
-            req.user = user;
+            req.user = userWithEmail;
 
             next();
         } catch (e) {
@@ -39,23 +40,18 @@ class UserMiddleware {
         }
     }
 
-    public async checkIsUserExistById(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
+    public async checkUserRole(req: IRequestExtended, res: Response, next: NextFunction): Promise<void | Error> {
         try {
-            const { id } = req.params;
+            const userRole = req.userRoles;
 
-            if (!id) {
-                next(new ErrorHandler(MESSAGE.ID_NOT_EXIST, STATUS.CODE_404));
-                return;
+            const { role } = req.user as IUser;
+
+            if (role) {
+                if (!userRole?.includes(role)) {
+                    next(new ErrorHandler(MESSAGE.UNAUTHORIZED, STATUS.CODE_401));
+                    return;
+                }
             }
-
-            const userFromDB = await userService.getUserById(Number(id));
-
-            if (!userFromDB) {
-                next(new ErrorHandler(MESSAGE.NOT_USER, STATUS.CODE_404));
-                return;
-            }
-
-            req.user = userFromDB;
 
             next();
         } catch (e) {

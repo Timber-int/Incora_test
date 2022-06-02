@@ -1,15 +1,16 @@
 import { Column, Entity } from 'typeorm';
-
 import { DefaultValue, IDefaultValue } from './defaultValue';
 import { CONSTANTS } from '../constants';
 
 export interface IUser extends IDefaultValue {
     id: number,
-    first_name: string,
-    last_name: string,
+    firstName: string,
+    lastName: string,
+    age?: number,
     phone: string,
     email: string,
     password: string;
+    role?: string;
 }
 
 @Entity('users', { database: CONSTANTS.DATA_BASE })
@@ -19,19 +20,25 @@ export class User extends DefaultValue implements IUser {
         width: 255,
         nullable: false,
     })
-        first_name: string;
+        firstName: string;
 
     @Column({
         type: 'varchar',
         width: 255,
         nullable: false,
     })
-        last_name: string;
+        lastName: string;
+
+    @Column({
+        type: 'int',
+    })
+        age?: number;
 
     @Column({
         type: 'varchar',
         width: 255,
         nullable: false,
+        unique: true,
     })
         phone: string;
 
@@ -49,4 +56,12 @@ export class User extends DefaultValue implements IUser {
         nullable: false,
     })
         password: string;
+
+    @Column({
+        type: 'varchar',
+        width: 255,
+        nullable: false,
+        default: 'user',
+    })
+        role: string;
 }

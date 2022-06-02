@@ -1,0 +1,20 @@
+.movies_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.movies_container_custom_pagination {
+    margin-bottom: 20px;
+}
+
+.movies_genres_list {
+    margin-top: 10px;
+}
+
+.movies_list_loading {
+    display: flex;
+    justify-content: center;
+    margin: 10% 0 10% 0;
+    animation: rotate 1s infinite linear;
+}

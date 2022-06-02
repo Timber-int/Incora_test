@@ -1,15 +1,14 @@
 import {
     Column, Entity, JoinColumn, OneToOne,
 } from 'typeorm';
-
 import { User } from './user';
 import { CONSTANTS } from '../constants';
 import { DefaultValue, IDefaultValue } from './defaultValue';
 
-export interface IToken extends IDefaultValue{
-    refreshToken:string,
-    accessToken:string,
-    userId:number
+export interface IToken extends IDefaultValue {
+    refreshToken: string,
+    accessToken: string,
+    userId: number
 }
 
 @Entity('tokens', { database: CONSTANTS.DATA_BASE })
@@ -19,14 +18,14 @@ export class Token extends DefaultValue implements IToken {
         width: 250,
         nullable: false,
     })
-        refreshToken:string;
+        refreshToken: string;
 
     @Column({
         type: 'varchar',
         width: 250,
         nullable: false,
     })
-        accessToken:string;
+        accessToken: string;
 
     @Column({
         type: 'int',
@@ -35,5 +34,5 @@ export class Token extends DefaultValue implements IToken {
 
     @OneToOne(() => User)
     @JoinColumn({ name: 'userId' })
-        user:User;
+        user: User;
 }

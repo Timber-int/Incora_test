@@ -1,17 +1,22 @@
-import { EntityRepository, getManager, Repository } from 'typeorm';
-
-import { IToken, Token } from '../../entity';
+import {
+    DeleteResult, EntityRepository, getManager, Repository,
+} from 'typeorm';
+import { Token } from '../../entity/token';
 import { ITokenRepository } from './tokenRepositoryInterface';
 import { ITokenDataToSave } from '../../interface/tokenInterfaces';
 
-EntityRepository(Token);
+@EntityRepository(Token)
 class TokenRepository extends Repository<Token> implements ITokenRepository {
-    public async getTokenByUserId(userId: number): Promise<IToken | undefined> {
+    public async getTokenById(userId: number): Promise<Token | undefined> {
         return getManager().getRepository(Token).findOne({ userId });
     }
 
-    public async saveTokenToDB(token: ITokenDataToSave): Promise<IToken> {
+    public async saveTokeToDB(token: ITokenDataToSave): Promise<Token> {
         return getManager().getRepository(Token).save(token);
+    }
+
+    public async deleteTokenById(userId: number): Promise<DeleteResult> {
+        return getManager().getRepository(Token).delete({ userId });
     }
 }
 
