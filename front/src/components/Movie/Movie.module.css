@@ -19,9 +19,9 @@ a {
     box-shadow: 0 0 30px #2E94E3;
 }
 
-/*.movie_card_dark_mode:hover {*/
-/*    box-shadow: 0 0 30px #64dd17;*/
-/*}*/
+.movie_card_dark_mode:hover {
+    box-shadow: 0 0 30px #64dd17;
+}
 
 .title {
     width: 100%;
@@ -34,6 +34,7 @@ a {
 .poster {
     border-radius: 10px;
     width: 100%;
+    height: 600px;
 }
 
 .release_date_container {

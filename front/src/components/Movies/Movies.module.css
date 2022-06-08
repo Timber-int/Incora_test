@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 20px;
 }
 
 .movies_container_custom_pagination {
@@ -17,4 +18,27 @@
     justify-content: center;
     margin: 10% 0 10% 0;
     animation: rotate 1s infinite linear;
+}
+
+.search_container {
+    width: 100%;
+    margin-top: 80px;
+    height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.not_searchMovies_page {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 36px;
+    height: 900px;
+    color: #2E94E3;
+}
+.genres_container{
+    width: 100%;
 }

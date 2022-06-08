@@ -4,10 +4,22 @@ import {LOADING, REJECTED, RESOLVED} from "../constants";
 
 export const getAllMovies = createAsyncThunk(
     'authSlice/getAllMovies',
-    async ({page}, {dispatch, rejectWithValue}) => {
+    async ({page,genreForURL}, {dispatch, rejectWithValue}) => {
         try {
-            const data = await movieService.getAllDiscoverMovie(page);
+            const data = await movieService.getAllDiscoverMovie(page,genreForURL);
             return {movies: data};
+        } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    }
+);
+
+export const getFilteredMovies = createAsyncThunk(
+    'authSlice/getFilteredMovies',
+    async ({page,searchData}, {dispatch, rejectWithValue}) => {
+        try {
+            const data = await movieService.getFilteredMovie(page,searchData);
+            return {filteredMovies: data};
         } catch (e) {
             return rejectWithValue(e.message);
         }
@@ -46,8 +58,14 @@ const movieSlice = createSlice({
         pages: null,
         movie: {},
         video: {},
+        searchData: '',
+        filteredMovies: [],
     },
-    reducers: {},
+    reducers: {
+        filterMovies: (state, action) => {
+            state.searchData = action.payload.searchData.title;
+        }
+    },
     extraReducers: {
         [getAllMovies.pending]: (state, action) => {
             state.status = LOADING;
@@ -82,10 +100,24 @@ const movieSlice = createSlice({
         },
         [getVideo.fulfilled]: (state, action) => {
             state.status = RESOLVED;
-            state.video = action.payload.video;
+            state.video = action.payload.video.results[0]?.key;
             state.errors = null;
         },
         [getVideo.rejected]: (state, action) => {
+            state.status = REJECTED;
+            state.errors = action.payload;
+        },
+
+        [getFilteredMovies.pending]: (state, action) => {
+            state.status = LOADING;
+            state.errors = null;
+        },
+        [getFilteredMovies.fulfilled]: (state, action) => {
+            state.status = RESOLVED;
+            state.filteredMovies = action.payload.filteredMovies.results;
+            state.errors = null;
+        },
+        [getFilteredMovies.rejected]: (state, action) => {
             state.status = REJECTED;
             state.errors = action.payload;
         },
@@ -94,8 +126,8 @@ const movieSlice = createSlice({
 
 const movieReducer = movieSlice.reducer;
 
-const {} = movieSlice.actions;
+const {filterMovies} = movieSlice.actions;
 
-export const movieAction = {};
+export const movieAction = {filterMovies};
 
 export default movieReducer;

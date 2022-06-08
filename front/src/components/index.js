@@ -5,3 +5,7 @@ export * from './Movies/Movies';
 export * from './Movie/Movie';
 export * from './MovieDetails/MovieDetails';
 export * from './CustomPagiantion/CustomPagination';
+export * from './SearchForm/SearchForm';
+export * from './Genres/Genres';
+export * from './Genre/Genre';
+export * from './ChosenGenre/ChosenGenre';

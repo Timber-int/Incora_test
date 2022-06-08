@@ -1,10 +1,12 @@
 import React from 'react';
 import {NavLink, Outlet} from "react-router-dom";
 
+import css from './Layout.module.css';
+
 const Layout = () => {
     return (
-        <div>
-            <div>
+        <>
+            <div className={css.navigate_container}>
                 <NavLink to={'/registration'}>Registration</NavLink>
                 <NavLink to={'/movies'}>Movies</NavLink>
                 <NavLink to={'/login'}>Login</NavLink>
@@ -13,7 +15,7 @@ const Layout = () => {
             <div>
                 <Outlet/>
             </div>
-        </div>
+        </>
     );
 };
 

@@ -1,0 +1,12 @@
+.navigate_container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    font-size: 32px;
+}
+
+.navigate_container > a {
+    text-decoration: none;
+    color: #2E94E3;
+}

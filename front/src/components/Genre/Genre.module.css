@@ -1,0 +1,19 @@
+.genre_box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 26px;
+    margin: 5px;
+    background: #282c34;
+    color: #2E94E3;
+    width: 200px;
+    border-radius: 10px;
+    border: 5px solid #2E94E3;
+    cursor: pointer;
+}
+
+.genre_box:hover {
+    background: #2E94E3;
+    color: #282c34;
+    border: 5px solid #282c34;
+}

@@ -1,0 +1,19 @@
+.chosen_genre_box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 26px;
+    margin: 5px;
+    background: #b71c1c;
+    color: #eeff41;
+    width: 200px;
+    border-radius: 10px;
+    border: 5px solid #eeff41;
+    cursor: pointer;
+}
+
+.chosen_genre_box:hover {
+    background: #eeff41;
+    color: #b71c1c;
+    border: 5px solid #b71c1c;
+}
